@@ -15,9 +15,8 @@ import "fmt"
 //扩展已有类型,系统类型或者别人的类型
 //定义别名 或者 使用组合
 
-
-
 //面向对象编程
+//go语言的仅支持封装,不支持继承和多态,所以没有class,只有struct(结构体)
 //go语言的面向对象, 没有继承和多态 只有封装
 //只有面向接口编程
 //这里着重介绍, 定义方法时的两种方式和 方法作为值接受者和指针接受者时的不同
@@ -29,11 +28,9 @@ import "fmt"
 //值接受者是go语言的特有
 ///值/指针 接收者均可以接收值/指针
 
-
-
 type TreeNode struct {
-	Value       int
-	Left, Right *TreeNode
+	Value       int       //这样的属性,默认是0
+	Left, Right *TreeNode //这样的属性,默认是nil
 }
 
 //为treeNode创建一个方法
@@ -56,8 +53,6 @@ func (node *TreeNode) SetValue(value int) {
 	}
 	node.Value = value
 }
-
-
 
 //go语言没有构造函数, 如果需要构造函数,可以通过这样的工厂函数来做,以实现构造函数的方式
 func CreateNode(value int) *TreeNode {
