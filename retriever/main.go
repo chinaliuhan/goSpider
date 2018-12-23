@@ -29,8 +29,10 @@ type Retriever interface {
 }
 
 //使用者
+const url = "http://www.baidu.com"
+
 func download(r Retriever) string {
-	return r.Get("http://www.baidu.com")
+	return r.Get(url)
 }
 
 func inspect(r Retriever) {
@@ -45,11 +47,43 @@ func inspect(r Retriever) {
 		fmt.Println("UserAgent:", v.UserAgent)
 	}
 }
+
+//组合接口
+type Poster interface {
+	Post(url string, form map[string]string) string
+}
+
+func post(poster Poster) {
+	poster.Post(
+		url,
+		map[string]string{
+			"name":   "liu",
+			"course": "golang",
+		},
+	)
+}
+
+//不仅要用Poster的post还要用Retriever的get
+//接口声明后,要实现所有的方式否则会报错
+type RetrieverPoster interface {
+	//要用什么就把什么接口写进去,也可以扩展一些方法,方法就需要加()了
+	Retriever
+	Poster
+	//也可以扩展一些方法,方法就需要加()了
+	//Connect(host string) string
+}
+
+//纪要调用post又要调用get
+func session(s RetrieverPoster) string {
+	s.Post(url, map[string]string{"Contents": "another faked baidu.com"})
+	return s.Get(url)
+}
+
 func main() {
 	var r Retriever
 	//第一个属性写第一个,第二个写第二个,以此类推
 	//这是一个值接受者,但是可以传入指针也没有问题比如&mock.Retriever{...,然后后面输出类型的时候就会发现,里面的类型也变成了指针
-	r = mock.Retriever{"this is fake baidu.com", "this is fake title"}
+	r = mock.Retriever{"this is fake baidu.com"}
 	//打印类型和value
 	//输出mock.Retriever {this is fake baidu.com this is fake title} , 可见r的里面还是有类型和值的
 	//fmt.Printf("%T %v\n", r, r)
@@ -77,4 +111,8 @@ func main() {
 	}
 
 	//fmt.Println(download(r))
+
+	fmt.Println("try a session")
+	retriever := &mock.Retriever{"this is fake baidu.com"}
+	fmt.Println(session(retriever))
 }
