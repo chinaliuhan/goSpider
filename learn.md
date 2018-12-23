@@ -67,6 +67,8 @@ export PATH="$GOPATH/bin:$PATH"
 
 ## intellij IDEA自动清掉我们文件中错误的import
 
+如果直接用goland这个IDE的话不用搞这些,格式化代码的时候会自动去掉
+
 老版本idea是在系统设置中的 language & framework 里面的go 里面有一个On save的几个选项
 新版本idea需要在plugin 安装 file watch 然后在 设置中的tools 中的file watch 中添加
 我的添加目录案例: /Users/liuhao/go/bin/goimports 然后文件自动保存或手动保存时就会清掉无用的imports
