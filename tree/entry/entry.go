@@ -32,7 +32,7 @@ func main() {
 
 	//结构的创建,这里的相当于将root作为TreeNode的实例化后的名称
 	var root tree.TreeNode
-
+	//这里的这个{Value}就是放的初始值
 	root = tree.TreeNode{Value: 3}
 	//这里就是将这个成员, 也设置成一个tradeNode的里面的内容
 	//而且left和right是一个指针, 所以这里要通过传入指针类型的传入
