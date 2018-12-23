@@ -28,7 +28,7 @@ func (myNode *myTreeNode) postOrder() {
 
 func main() {
 
-	//结构的创建
+	//结构的创建,这里的相当于将root作为TreeNode的实例化后的名称
 	var root tree.TreeNode
 
 	root = tree.TreeNode{Value: 3}
