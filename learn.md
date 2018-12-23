@@ -56,11 +56,20 @@ go语言自带的包会到自己原来自己的src目录中取找, 这个我们�
 
 我们自己import 的包是到我们定义的GOPATH中取找
 
+设置环境变量
+export GOPATH=/Users/liuhao/go
+一要用的话也可以把这个也设置进去
+export PATH="$GOPATH/bin:$PATH"
 
-## 自动清掉我们文件中错误的import
+一般go会默认设置环境变量,我们在编写代码时,使用import时,系统的库他回去自动找自己的$GOROOT库.
+我们写的库的话,会到$GOPATH中取查找.
+
+
+## intellij IDEA自动清掉我们文件中错误的import
 
 老版本idea是在系统设置中的 language & framework 里面的go 里面有一个On save的几个选项
 新版本idea需要在plugin 安装 file watch 然后在 设置中的tools 中的file watch 中添加
+我的添加目录案例: /Users/liuhao/go/bin/goimports 然后文件自动保存或手动保存时就会清掉无用的imports
 
 nothing     这个就不说了 
 
@@ -68,6 +77,7 @@ go fmt      只做格式化代码用
 
 go imports  不仅格式化代码, 而且还会对错误的Import进行清除和格式化
 
+在这之前呢需要我们下载和安装这个第三方的库,否则你也没有goimports文件,自动保存的时候会暴一个Can't find `goimports` in GOPATH.....
 
 使用go get 获取第三方库
 
@@ -121,7 +131,7 @@ $ go install  ../src/golang.org/x/tools/cmd/goimports
 
 1. go get 命令演示
 2. 使用gopm 来获取无法下载的包
-3. go build来编译 我们编写的go文件
+3. go build来编译 我们编写的go文件,但是会建立在当前目录下
 4. go install 产生Pkg文件和可执行文件 将我们编写的go文件安装到~/go/bin下
     使用go install ./... 安装当前目录下所有的go的包
     go install 的时候一个package的main函数只能有1个,所以go语言的main函数都要在自己的一个目录下面
@@ -142,6 +152,18 @@ $ tree -L 2
     └── learnGo
 
 ```
+
+```
 src 有很多第三方的包和我们的自己的项目放在里面, 每个人站一个目录
 pkg 和src是对应的是我们build出来的一些中间过程,我们不用去管他
 bin 就是我们生成的可执行文件
+
+src
+    git repository 1
+    git repository 1
+pkg
+    git repository 1
+    git repository 1
+bin
+    可执行文件1,2,3,4...
+```
