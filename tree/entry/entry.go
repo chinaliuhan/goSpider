@@ -32,12 +32,12 @@ func main() {
 
 	//结构的创建,这里的相当于将root作为TreeNode的实例化后的名称
 	var root tree.TreeNode
-	//这里的这个{Value}就是放的初始值
+	//这里的这个{Value}就是放的初始值,第一个属性写第一个,第二个写第二个,以此类推,如果不赋值的都不管否则都要赋值
 	root = tree.TreeNode{Value: 3}
 	//这里就是将这个成员, 也设置成一个tradeNode的里面的内容
 	//而且left和right是一个指针, 所以这里要通过传入指针类型的传入
 	root.Left = &tree.TreeNode{}
-	//将treeNode的right成员,设置成treeNode{5, nil, nil}的内容
+	//将treeNode的right成员,设置成treeNode{5, nil, nil}的内容 	第一个属性写第一个,第二个写第二个,以此类推,如果不赋值的都不管否则都要赋值
 	root.Right = &tree.TreeNode{5, nil, nil}
 	//这里通过new 获取treeNode的地址,赋值给了root.right.left
 	root.Right.Left = new(tree.TreeNode)
