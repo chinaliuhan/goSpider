@@ -9,6 +9,9 @@ import (
 
 /**
 接口定义的解说, download 和Retriever的角色
+接口声明后,要实现所有的方式否则会报错
+Golang的interface，和别的语言是不同的。
+它不需要显式的implements，只要某个struct实现了interface里的所有函数，编译器会自动认为它实现了这个interface。
 download 是使用者,Retriever 是实现者
 go语言的接口是由使用者来定义的,传统的面向对象是实现者调用的,
 
@@ -53,6 +56,7 @@ type Poster interface {
 	Post(url string, form map[string]string) string
 }
 
+//实现接口的方法
 func post(poster Poster) {
 	poster.Post(
 		url,
