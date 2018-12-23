@@ -1,5 +1,7 @@
 package main
 
+//注意这里为什么么要把entry单独放在一个文件里, 是因为go语言中要求一个包一个 目录
+//如果要把一个包分散在不同的文件中,放在同一个目录下,然后包名一样就行,比如我们的Traverse.go
 import (
 	"fmt"
 	"learnGo/tree"
@@ -88,5 +90,5 @@ func main() {
 	myRoot.postOrder()
 	fmt.Println()
 
-	//root.traverse()
+	root.Traverse()
 }
