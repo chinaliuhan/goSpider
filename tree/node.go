@@ -29,8 +29,8 @@ import "fmt"
 ///值/指针 接收者均可以接收值/指针
 
 type TreeNode struct {
-	Value       int       //这样的属性,默认是0
-	Left, Right *TreeNode //这样的属性,默认是nil
+	Value       int       //这样的属性,默认是0  键是Value值是0 int类型
+	Left, Right *TreeNode //这样的属性,默认是nil 键是left和right 值是nil 类型是指针类型TreeNode
 }
 
 //为treeNode创建一个方法
