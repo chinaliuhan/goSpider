@@ -39,16 +39,18 @@ func download(r Retriever) string {
 }
 
 func inspect(r Retriever) {
+	fmt.Println("Inspecting", r)
 	//打印类型
-	fmt.Printf("%T %v\n", r, r)
+	fmt.Printf("--- %T %v\n", r, r)
 	//可以发现改为&mock.Retriever{...,之后下面的case mock.Retriever:不会被命中了输出不了Contents:
-	fmt.Printf("type switch:\n")
+	fmt.Printf("--- type switch:\n")
 	switch v := r.(type) {
 	case mock.Retriever:
 		fmt.Println("Contents:", v.Content)
 	case *real2.Retriever:
 		fmt.Println("UserAgent:", v.UserAgent)
 	}
+	fmt.Println()
 }
 
 //组合接口
@@ -115,8 +117,14 @@ func main() {
 	}
 
 	//fmt.Println(download(r))
-
+	//这里是用来测试接口组合
 	fmt.Println("try a session")
-	retriever := &mock.Retriever{"this is fake baidu.com"}
-	fmt.Println(session(retriever))
+	//retriever := &mock.Retriever{"this is fake baidu.com"}
+	//fmt.Println(session(retriever))
+
+	//这里是测试 mock.Retriever重写了String方法,而这个方法zai inspect中自动被调用了...
+	var r2 Retriever
+	retriever2 := mock.Retriever{"这里是百度"}
+	r2 = &retriever2
+	inspect(r2)
 }
