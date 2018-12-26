@@ -122,7 +122,7 @@ func main() {
 	//retriever := &mock.Retriever{"this is fake baidu.com"}
 	//fmt.Println(session(retriever))
 
-	//这里是测试 mock.Retriever重写了String方法,而这个方法zai inspect中自动被调用了...
+	//这里是测试 mock.Retriever重写了String方法,而这个方法当输出字符串时在 inspect中自动被调用了...
 	var r2 Retriever
 	retriever2 := mock.Retriever{"这里是百度"}
 	r2 = &retriever2

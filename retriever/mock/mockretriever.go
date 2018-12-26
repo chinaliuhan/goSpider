@@ -11,6 +11,7 @@ type Retriever struct {
 //要完成当前类 implements 的（或者抽象基本类的）接口的方法，就使用 Ctrl-I （ Code | Implement Methods… ）。
 
 //就是看到fmt 中stringEr中的有一個String(),所以我們這裡,重寫一下試試,这个写完之后就相当于是其他语言中的toString
+//当采用任何接受字符的verb（%v %s %q %x %X）动作格式化一个操作数时，或者被不使用格式字符串如Print函数打印操作数时，会调用String方法来生成输出的文本。
 func (r *Retriever) String() string {
 	return fmt.Sprintf("!!!Retriever:{Contests=%s}", r.Content)
 }
