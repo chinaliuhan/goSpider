@@ -43,7 +43,7 @@ func inspect(r Retriever) {
 	//打印类型
 	fmt.Printf("--- %T %v\n", r, r)
 	//可以发现改为&mock.Retriever{...,之后下面的case mock.Retriever:不会被命中了输出不了Contents:
-	fmt.Printf("--- type switch:\n")
+	fmt.Print("--- type switch:\n")
 	switch v := r.(type) {
 	case mock.Retriever:
 		fmt.Println("Contents:", v.Content)
@@ -123,6 +123,7 @@ func main() {
 	//fmt.Println(session(retriever))
 
 	//这里是测试 mock.Retriever重写了String方法,而这个方法当输出字符串时在 inspect中自动被调用了...
+	//其他的实例的输出因为没有实现String()所以输出的都是默认的系统输出
 	var r2 Retriever
 	retriever2 := mock.Retriever{"这里是百度"}
 	r2 = &retriever2

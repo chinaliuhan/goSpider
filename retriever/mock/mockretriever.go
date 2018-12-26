@@ -12,6 +12,7 @@ type Retriever struct {
 
 //就是看到fmt 中stringEr中的有一個String(),所以我們這裡,重寫一下試試,这个写完之后就相当于是其他语言中的toString
 //当采用任何接受字符的verb（%v %s %q %x %X）动作格式化一个操作数时，或者被不使用格式字符串如Print函数打印操作数时，会调用String方法来生成输出的文本。
+//其他的实例的输出因为没有实现String()所以输出的都是默认的系统输出
 func (r *Retriever) String() string {
 	return fmt.Sprintf("!!!Retriever:{Contests=%s}", r.Content)
 }
