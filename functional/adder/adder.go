@@ -32,7 +32,7 @@ func adder() func(int) int {
 //返回一个新的函数,递归定义
 type iAddr func(int) (int, iAddr)
 
-//接收一个base返回的是一个iAdder
+//接收一个base返回的是一个iAdder即下一个函数
 func addr2(base int) iAddr {
 	//传入一个参数v,返回一个整型和iAdder函数
 	return func(v int) (int, iAddr) {
