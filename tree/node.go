@@ -55,6 +55,7 @@ func (node *TreeNode) SetValue(value int) {
 }
 
 //go语言没有构造函数, 如果需要构造函数,可以通过这样的工厂函数来做,以实现构造函数的方式
+//工厂函数,返回一个结构地址即可
 func CreateNode(value int) *TreeNode {
 	//在c++里面这里返回的是一个局部变量的地址注意这里的&符,c++里面会挂掉, 但是go语言不会
 	return &TreeNode{Value: value}
