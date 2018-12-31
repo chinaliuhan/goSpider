@@ -4,8 +4,12 @@ import "testing"
 
 //表格驱动测试
 
-//可以用IDE左侧的箭头进行测试
+//可以用IDE左侧的箭头选择run进行测试
 //也可以在命令行中,到当前目录下使用go test ./ 来测试
+
+//代码测试的覆盖率通过函数IDE左侧的箭头run...converage 绿色为覆盖到的和覆盖次数,红色未没有覆盖
+//也可以在当前目录下的命令行中 go test -coverprofile=c.out
+// 然后使用go tool cover -html=c.out将结果转换为HTML 然后就会自动在浏览器中打开代码,绿色为覆盖到的和覆盖次数,红色未没有覆盖
 func TestTriangle(t *testing.T) {
 	//这里是一个结构体数组
 	//上面{}中的定义几个参数, 下面的{}中每一个{}都要补齐个数
