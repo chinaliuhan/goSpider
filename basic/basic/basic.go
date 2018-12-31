@@ -57,6 +57,10 @@ func variableShorter() {
 
 func triangle() {
 	var a, b int = 3, 4
+	fmt.Println(calcTriangle(a, b))
+}
+
+func calcTriangle(a, b int) int {
 	var c int
 	//注意go的类型转换必须是显式的,没有隐式的
 	// 这里的结果不加手动int() 会报cannot use math.Sqrt(float64(a * a + b * b)) (type float64) as type int in assignment
@@ -65,7 +69,8 @@ func triangle() {
 	c = int(math.Sqrt(float64(a*a + b*b)))
 	//错误的写法 错误原因就是上面说的那样
 	//var c int = math.Sqrt(a*a + b*b)
-	fmt.Println(c)
+	//fmt.Println(c)
+	return c
 }
 
 //常量
