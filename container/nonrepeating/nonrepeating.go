@@ -33,10 +33,18 @@ func lengthOfNonRepeatingSubstr(s string) int {
 	return maxLength
 }
 
+//通过pprof的分析结果查看这里非常的占用性能,所以这里我们使用空间来换性能
+//因为rune类型的map字符型的,都很费性能, 优化的方式是我们开一个比较大的slice
+var lastOccurred = make([]int, 0xffff)
 //支持中文
 func lengthOfNonRepeatingSubstr1(s string) int {
 	//字符串最后一次出现的位置
-	lastOccurred := make(map[rune]int)
+	//lastOccurred := make(map[rune]int)
+	//性能优化添加的
+	for i := range lastOccurred {
+		lastOccurred[i] = -1
+	}
+
 	//当前开始扫描的位置
 	start := 0
 	//连续不重复字符串的总长度
@@ -47,9 +55,14 @@ func lengthOfNonRepeatingSubstr1(s string) int {
 		//判断当前遍历的, 字符串ch 是否在map中
 		// go原因的if是可以放表达式的,所以我们可以把这句话, 放在if中, 当然也可以单独一行
 		// lastI, ok := lastOccurred[ch]
-		if lastI, ok := lastOccurred[ch]; ok && lastI >= start {
-			//如果以存在, 则将
+		//if lastI, ok := lastOccurred[ch]; ok && lastI >= start {
+		//如果以存在, 则将
+		//start = lastI + 1
+		//}
+		//性能优化后添加
+		if lastI := lastOccurred[ch]; lastI != -1 && lastI >= start {
 			start = lastI + 1
+
 		}
 
 		//将当前遍历到的位置存储在maxLength中
