@@ -78,7 +78,7 @@ func main() {
 	http.HandleFunc("/", errWrapper(filelisting.HandleFileList))
 
 	//开启监听服务器
-	err := http.ListenAndServe(":8881", nil)
+	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
 		panic(err)
 	}
