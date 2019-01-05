@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-//这里我们直接用channel来通信,告诉外面我们这里做完了
+//这里我们直接用sync.WaitGroup来通信,告诉外面我们这里做完了
 func doWorker(id int, w worker) {
 
 	for n := range w.in {
