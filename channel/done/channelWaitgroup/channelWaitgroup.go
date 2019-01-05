@@ -1,4 +1,4 @@
-package channelWaitgroup
+package main
 
 import (
 	"fmt"
