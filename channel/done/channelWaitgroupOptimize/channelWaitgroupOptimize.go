@@ -8,16 +8,15 @@ import (
 //这里我们直接用sync.WaitGroup来通信,告诉外面我们这里做完了
 func doWorker(id int, w worker) {
 
-	for n := range w.in {
-		fmt.Printf("worker %d received %c \n", id, n)
-		w.done()
-	}
-	//这时候就不能用下面这钟方式了,会报错panic: sync: negative WaitGroup counter
-	//for {
-	//	n := w.in
+	//for n := range w.in {
 	//	fmt.Printf("worker %d received %c \n", id, n)
 	//	w.done()
 	//}
+	for {
+		n := <-w.in
+		fmt.Printf("worker %d received %c \n", id, n)
+		w.done()
+	}
 }
 
 //声明一个结构体,结构体里两个channel类型的成员属性, 将in作为传值,done作为内外通信
