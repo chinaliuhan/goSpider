@@ -9,6 +9,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"regexp"
 )
 
 func main() {
@@ -40,7 +41,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", all)
+	//fmt.Printf("%s\n", all)
+	printCityList(all)
 
 }
 
@@ -55,4 +57,19 @@ func determineEncoding(r io.Reader) encoding.Encoding {
 	//依赖gopm get -g -v golang.org/x/net
 	e, _, _ := charset.DetermineEncoding(bytes, "")
 	return e
+}
+
+func printCityList(contents []byte) {
+	//生成正则表达式,一般我们自己写的用MustCompile,否则用Compile()处理错误信息
+	re := regexp.MustCompile(`<a\s+href="(http://www.zhenai.com/zhenghun/[0-9a-zA-Z]+)"[^>]*>([^<]+)</a>`)
+	//返回一个[]byte ,相当于是一组被匹配到的字符串
+	//matches := re.FindAll(contents, -1)
+	//子匹配
+	matches := re.FindAllSubmatch(contents, -1)
+	for _, m := range matches {
+		fmt.Printf("City: %s, URL: %s\n", m[2], m[1])
+	}
+
+	fmt.Printf("Matches found: %d\n", len(matches))
+
 }

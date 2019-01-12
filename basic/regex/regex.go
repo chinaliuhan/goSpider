@@ -16,7 +16,7 @@ func main() {
 
 	//这里填入一个正则表达式,返回一个正则表达式的匹配器,和错误信息
 	//re, err := regexp.Compile("terraplanets@gmail.com")
-	//这里和上面的一样,不一样的地方在于,如果表达式不对,会直接panic
+	//这里和上面的一样,不一样的地方在于,如果表达式不对,会直接panic 一般自己写的表达式用MustCompile(),否则用Compile()处理错误信息
 	//re := regexp.MustCompile("terraplanets@gmail.com")
 	//这里的如果要匹配'.',不把他当做一个正则表达式字符的话需要用\\.,否则会被认为是golang的转义字符,也可以向下面那样使用``包含字符串
 	//中括号的中'.'不用转义之类的操作
