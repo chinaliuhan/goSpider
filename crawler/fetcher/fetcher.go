@@ -7,11 +7,11 @@ import (
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
+
 //通过URL下载对应的页面并自动转码为utf-8
 func Fetch(url string) ([]byte, error) {
 	//处理URL返回处理完的具体内容,和错误信息
@@ -35,17 +35,20 @@ func Fetch(url string) ([]byte, error) {
 	//转码,将GBK转码为UTF8
 	//utf8Reader := transform.NewReader(response.Body, simplifiedchinese.GBK.NewDecoder())
 	//使用封装的这个来自动判断编码
-	e := determineEncoding(response.Body)
-	utf8Reader := transform.NewReader(response.Body, e.NewDecoder())
+	bodyReader := bufio.NewReader(response.Body)
+	e := determineEncoding(bodyReader)
+	utf8Reader := transform.NewReader(bodyReader, e.NewDecoder())
 
 	//只要body
 	return ioutil.ReadAll(utf8Reader)
 }
 
 //自动检测编码
-func determineEncoding(r io.Reader) encoding.Encoding {
-	//如果把response.body直接放进来的话,读完后面就没法再读了,所以这里我们单独处理一下
-	bytes, err := bufio.NewReader(r).Peek(1024)
+func determineEncoding(r *bufio.Reader) encoding.Encoding {
+	//如果把response.body直接放进来的话,读完后面就没法再读了,所以这里我们单独处理一下,只用peek拿出前面的1024个
+	//bytes, err := bufio.NewReader(r).Peek(1024)
+	//上面读完后面1024后,后面的内容会少1024,所以这里改成这样,同时将 bufio.NewReader拿到外面去
+	bytes, err := r.Peek(1024)
 	if err != nil {
 		log.Printf("fetcher error:%v", err)
 		//返回默认编码
