@@ -17,10 +17,23 @@ func Fetch(url string) ([]byte, error) {
 	//处理URL返回处理完的具体内容,和错误信息
 
 	//请求页面 "http://www.zhenai.com/zhenghun"
-	response, err := http.Get(url)
+	//response, err := http.Get(url)
+	client := &http.Client{}
+	request, err := http.NewRequest("GET", url, nil)
+	request.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
+	//request.Header.Add("Accept-Encoding", "gzip, deflate")//不能有这个,解不开
+	request.Header.Add("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8")
+	request.Header.Add("Cache-Control", "no-cache")
+	request.Header.Add("Connection", "keep-alive")
+	request.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36")
 	if err != nil {
 		return nil, err
 	}
+	response, err := client.Do(request)
+	if err != nil {
+		return nil, err
+	}
+
 	//关闭资源
 	defer response.Body.Close()
 	//会打印头部之类的信息

@@ -21,9 +21,17 @@ func ParseCity(contents []byte) engine.ParseResult {
 		//向实例中最追加城市名称
 		result.Items = append(result.Items, "User "+string(m[2]))
 		//请求实例中追加URL地址,同时拼装请求实例,追加到解析实例中的请求属性中
+		name := m[2]
 		result.Requests = append(result.Requests, engine.Request{
-			Url:        string(m[1]),
-			ParserFunc: engine.NilParser,
+			Url: string(m[1]),
+			//这里通过返回一个匿名函数,匿名函数中调用ParseProfile进行解析个人信息,避免了ParserFunc还要加参数
+			ParserFunc: func(content []byte) engine.ParseResult {
+				//如果这里直接使用string(m[2]),会出现所有人的名字都是第一个人的问题
+				//因为这里这个函数不是在这里运行,只是返回一个函数过去
+				//真正运行是在循环完毕之后,在外面引擎中排队运行,等排到他之后,这里这个m早就不是那个人了
+				//这个m的作用域,不是在for循环里面,而是所有这个for循环里面的返回的函数,所以我们把m[2]写到外面去重新定义一个变量copy一下
+				return ParseProfile(content, string(name))
+			},
 		})
 	}
 

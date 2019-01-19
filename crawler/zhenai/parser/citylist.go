@@ -17,9 +17,14 @@ func ParseCityList(contents []byte) engine.ParseResult {
 	matches := re.FindAllSubmatch(contents, -1)
 	//声明一个解析实例
 	result := engine.ParseResult{}
+	limit := 10
 	for _, m := range matches {
+		if limit == 0 {
+			break
+		}
+		limit--
 		//向实例中最追加城市名称
-		result.Items = append(result.Items, "City "+ string(m[2]))
+		result.Items = append(result.Items, "City "+string(m[2]))
 		//请求实例中追加URL地址,同时拼装请求实例,追加到解析实例中的请求属性中
 		result.Requests = append(result.Requests, engine.Request{
 			Url:        string(m[1]),
