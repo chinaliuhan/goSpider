@@ -30,6 +30,7 @@ func ParseCity(contents []byte) engine.ParseResult {
 				//因为这里这个函数不是在这里运行,只是返回一个函数过去
 				//真正运行是在循环完毕之后,在外面引擎中排队运行,等排到他之后,这里这个m早就不是那个人了
 				//这个m的作用域,不是在for循环里面,而是所有这个for循环里面的返回的函数,所以我们把m[2]写到外面去重新定义一个变量copy一下
+				//Go语言中的循环变量每次迭代中是重用的,如果把m[2]放在这里, m[2]将会是共享的
 				return ParseProfile(content, string(name))
 			},
 		})
