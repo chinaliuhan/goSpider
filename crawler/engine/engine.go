@@ -11,7 +11,7 @@ func Run(seeds ...Request) {
 	for _, r := range seeds {
 		requests = append(requests, r)
 	}
-	//如果队列中确实有数据,则进行遍历
+	//如果队列中确实有数据,则进行遍历, 后面再处理完城市列表后会将URL再次append到Request中去,继续for循环操作
 	for len(requests) > 0 {
 		r := requests[0]
 		requests = requests[1:]
