@@ -10,10 +10,17 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
+//请求频率的限制
+var rateLimiter = time.Tick(10 * time.Millisecond)
 //通过URL下载对应的页面并自动转码为utf-8
 func Fetch(url string) ([]byte, error) {
+	//要限制请求频率,这里不用做别的限制,因为time.Tick返回的本身就是一个不断递减的channel
+	//利用channel的阻塞特性,放这里就行
+	<-rateLimiter
+
 	//处理URL返回处理完的具体内容,和错误信息
 
 	//请求页面 "http://www.zhenai.com/zhenghun"

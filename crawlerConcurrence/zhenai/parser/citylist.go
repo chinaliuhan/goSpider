@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"learnGo/crawler/engine"
+	"learnGo/crawlerConcurrence/engine"
 	"regexp"
 )
 
@@ -22,7 +22,7 @@ func ParseCityList(contents []byte) engine.ParseResult {
 		if limit == 0 {
 			break
 		}
-		limit--
+		//limit--
 		//向实例中最追加城市名称
 		result.Items = append(result.Items, "City "+string(m[2]))
 		//请求实例中追加URL地址,同时拼装请求实例,追加到解析实例中的请求属性中

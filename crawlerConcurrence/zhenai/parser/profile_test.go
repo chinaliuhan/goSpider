@@ -2,7 +2,7 @@ package parser
 
 import (
 	"io/ioutil"
-	"learnGo/crawler/model"
+	"learnGo/crawlerConcurrence/model"
 	"testing"
 )
 
